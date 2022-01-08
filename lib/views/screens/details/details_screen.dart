@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:listify/controller/authentication_controller.dart';
+import 'package:listify/controller/task_controller.dart';
 import 'package:listify/controller/tasks/tasks_provider.dart';
 import 'package:listify/model/todo.dart';
 import 'package:listify/services/navigation_service.dart';
@@ -7,20 +9,19 @@ import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_app_bar.dart';
 import 'package:listify/views/widgets/k_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'widget/task_details_card.dart';
 
-class DetailsScreen extends ConsumerStatefulWidget {
-  const DetailsScreen({Key key}) : super(key: key);
+class DetailsScreen extends StatefulWidget {
+  final Todo todo;
+  const DetailsScreen({Key? key, required this.todo}) : super(key: key);
 
   @override
-  ConsumerState<DetailsScreen> createState() => _DetailsScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends ConsumerState<DetailsScreen> {
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    final todoState = ref.watch(taskDetailsProvider.state);
     return Scaffold(
       appBar: KAppBar(
         titleText: "Task Details",
@@ -34,40 +35,43 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(height: KSize.getHeight(40)),
-              TaskDetailsCard(),
+              // TaskDetailsCard(),
               ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
-                  itemCount: todoState.state.subTask.length,
+                  itemCount: widget.todo.subTask?.length,
                   itemBuilder: (context, index) {
-                    return SubTaskCard(key: UniqueKey(), index: index);
+                    return Center(
+                      child: Text('Sub task'),
+                    );
+                    // return SubTaskCard(key: UniqueKey(), index: index);
                   }),
               KTextButton.iconText(
                   buttonText: 'Add Task',
                   assetIcon: KAssets.add,
                   onPressed: () {
-                    todoState.update((state) {
-                      state.subTask.add(SubTask());
-                      return state.copyWith(subTask: state.subTask);
-                    });
-                    ref.read(tasksProvider).updateSubTask();
+                    // TasksController.to.update(FirebaseAuthController.to.user.value.uid);
+                    // TasksController.to.updateSubTask();
                   }),
               SizedBox(height: KSize.getHeight(90)),
               KFilledButton(
                 buttonText: "Complete Task",
                 onPressed: () async {
-                  await ref.read(tasksProvider).completeTask(todoState.state.uid);
+                  await TasksController.to
+                      .completeTask(FirebaseAuthController.to.user.value!.uid);
                   Navigation.pop(context);
                 },
               ),
               SizedBox(height: KSize.getHeight(22)),
               KOutlinedButton(
                 buttonText: "Delete Task",
-                textStyle: KTextStyle.buttonText(fontWeight: FontWeight.w500).copyWith(color: KColors.red.withOpacity(0.8)),
+                textStyle: KTextStyle.buttonText(fontWeight: FontWeight.w500)
+                    .copyWith(color: KColors.red.withOpacity(0.8)),
                 borderColor: KColors.red.withOpacity(0.8),
                 onPressed: () async {
-                  await ref.read(tasksProvider).removeTodo(todoState.state.uid);
+                  await TasksController.to
+                      .removeTodo(FirebaseAuthController.to.user.value!.uid);
                   Navigation.pop(context);
                 },
               ),

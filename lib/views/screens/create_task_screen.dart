@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listify/controller/tasks/tasks_provider.dart';
+import 'package:listify/controller/task_controller.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_app_bar.dart';
@@ -18,7 +18,8 @@ class _CreateTaskScreenState extends ConsumerState<CreateTaskScreen> {
   final TextEditingController taskTitleController = TextEditingController();
   final TextEditingController taskDetailsController = TextEditingController();
   final TextEditingController dateTimeController = TextEditingController();
-  final TextEditingController priorityController = TextEditingController(text: 'Low');
+  final TextEditingController priorityController =
+      TextEditingController(text: 'Low');
 
   @override
   Widget build(BuildContext context) {
@@ -56,21 +57,24 @@ class _CreateTaskScreenState extends ConsumerState<CreateTaskScreen> {
                 KDropdownField(
                   controller: priorityController,
                   dropdownFieldOptions: ['Low', 'Medium', 'High'],
+                  callbackFunction: () {},
                 ),
                 SizedBox(height: KSize.getHeight(90)),
                 KFilledButton(
                     buttonText: "Add Task",
                     onPressed: () async {
                       if (taskTitleController.text.trim().isNotEmpty) {
-                        await ref.read(tasksProvider).createNewTask(
-                              taskTitleController.text,
-                              taskDetailsController.text,
-                              dateTimeController.text,
-                              priorityController.text,
-                            );
+                        await TasksController.to.createNewTask(
+                          taskTitleController.text,
+                          taskDetailsController.text,
+                          dateTimeController.text,
+                          priorityController.text,
+                        );
                         Navigation.pop(context);
                       } else {
-                        snackBar(context, title: 'Please enter a task name', backgroundColor: KColors.charcoal);
+                        snackBar(context,
+                            title: 'Please enter a task name',
+                            backgroundColor: KColors.charcoal);
                       }
                     })
               ],

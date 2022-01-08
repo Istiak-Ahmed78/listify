@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class DropdownMenus extends StatefulWidget {
   const DropdownMenus({
-    Key key,
-    this.controller,
-    this.items,
-    this.onChange,
+    Key? key,
+    required this.controller,
+    required this.items,
+    required this.onChange,
     this.trailing = const Icon(Icons.arrow_drop_down),
     this.showTrailing = true,
     this.hintTextStyle = const TextStyle(color: Colors.black),
@@ -35,11 +35,11 @@ class DropdownMenus extends StatefulWidget {
 class _DropdownMenusState extends State<DropdownMenus> {
   GlobalKey _key = LabeledGlobalKey('DropdownMenus');
 
-  OverlayEntry _overlayEntry;
+  OverlayEntry? _overlayEntry;
 
-  Size _menuSize;
+  Size? _menuSize;
 
-  Offset _menuPosition;
+  Offset? _menuPosition;
 
   double itemsPadding = 0;
 
@@ -48,25 +48,26 @@ class _DropdownMenusState extends State<DropdownMenus> {
   @override
   void initState() {
     super.initState();
-    if (widget.controller.text == null || widget.controller.text.isEmpty) widget.controller.text = 'Select an option';
+    if (widget.controller.text == null || widget.controller.text.isEmpty)
+      widget.controller.text = 'Select an option';
   }
 
-  void findWidget() {
-    RenderBox renderBox = _key.currentContext.findRenderObject();
-    _menuSize = renderBox.size;
-    _menuPosition = renderBox.localToGlobal(Offset.zero);
-  }
+  // void findWidget() {
+  //   RenderBox renderBox = _key.currentContext.findRenderObject();
+  //   _menuSize = renderBox.size;
+  //   _menuPosition = renderBox.localToGlobal(Offset.zero);
+  // }
 
   void openDropDownMenu() {
-    findWidget();
+    // findWidget();
     _overlayEntry = _overlayEntryBuilder();
-    Overlay.of(context).insert(_overlayEntry);
+    if (_overlayEntry != null) Overlay.of(context)!.insert(_overlayEntry!);
     _isActive = !_isActive;
   }
 
   void closeDropDownMenu() {
     if (_isActive) {
-      _overlayEntry.remove();
+      if (_overlayEntry != null) _overlayEntry!.remove();
       _isActive = !_isActive;
     }
   }
@@ -120,7 +121,7 @@ class _DropdownMenusState extends State<DropdownMenus> {
               closeDropDownMenu();
             },
             child: Container(
-              width: _menuSize.width,
+              width: _menuSize?.width,
               padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
               margin: EdgeInsets.only(bottom: itemsPadding),
               decoration: BoxDecoration(color: widget.itemBackgroundColor),
@@ -149,9 +150,9 @@ class _DropdownMenusState extends State<DropdownMenus> {
             ),
           ),
           Positioned(
-              top: _menuPosition.dy + _menuSize.height + 5,
-              left: _menuPosition.dx,
-              width: _menuSize.width,
+              top: (_menuPosition?.dy ?? 0.0) + (_menuSize?.height ?? 0) + 5.0,
+              left: _menuPosition?.dx,
+              width: _menuSize?.width,
               child: Material(child: _dropDownMenuBuilder(widget.items))),
         ],
       );

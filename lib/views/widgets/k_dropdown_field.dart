@@ -4,10 +4,10 @@ import 'package:listify/views/widgets/custom_widget/dropdown_menu.dart';
 
 class KDropdownField extends DropdownMenus {
   KDropdownField({
-    Key key,
-    this.dropdownFieldOptions,
-    this.controller,
-    this.callbackFunction,
+    Key? key,
+    required this.dropdownFieldOptions,
+    required this.controller,
+    required this.callbackFunction,
   })  : assert(controller != null),
         assert(dropdownFieldOptions.length > 1, 'Must have more than 1 item'),
         super(
@@ -15,8 +15,10 @@ class KDropdownField extends DropdownMenus {
           controller: controller,
           items: dropdownFieldOptions,
           onChange: callbackFunction,
-          hintTextStyle: KTextStyle.bodyText1().copyWith(color: KColors.charcoal),
-          itemTextStyle: KTextStyle.bodyText1().copyWith(color: KColors.charcoal),
+          hintTextStyle:
+              KTextStyle.bodyText1().copyWith(color: KColors.charcoal),
+          itemTextStyle:
+              KTextStyle.bodyText1().copyWith(color: KColors.charcoal),
           menuBackgroundColor: KColors.accent,
           itemBackgroundColor: KColors.accent,
         );

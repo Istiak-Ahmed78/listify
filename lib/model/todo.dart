@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Todo {
-  final String title;
-  final String description;
-  final String dateTime;
-  final List<SubTask> subTask;
-  final String priority;
-  final bool isCompleted;
+  final String? title;
+  final String? description;
+  final String? dateTime;
+  final List<SubTask>? subTask;
+  final String? priority;
+  final bool? isCompleted;
   final uid;
 
   Todo({
@@ -21,12 +21,12 @@ class Todo {
   });
 
   Todo copyWith({
-    String title,
-    String description,
-    String dateTime,
-    List<SubTask> subTask,
-    String priority,
-    bool isCompleted,
+    String? title,
+    String? description,
+    String? dateTime,
+    List<SubTask>? subTask,
+    String? priority,
+    bool? isCompleted,
     uid,
   }) =>
       Todo(
@@ -42,8 +42,10 @@ class Todo {
   factory Todo.fromJson(Map<String, dynamic> json) => Todo(
         title: json["title"],
         description: json["description"],
-        dateTime: DateFormat("MMM dd, yyyy hh:mm aa").format(DateTime.fromMillisecondsSinceEpoch(json["dateTime"])),
-        subTask: List<SubTask>.from(json["subTask"].map((task) => SubTask.fromJson(task))),
+        dateTime: DateFormat("MMM dd, yyyy hh:mm aa")
+            .format(DateTime.fromMillisecondsSinceEpoch(json["dateTime"])),
+        subTask: List<SubTask>.from(
+            json["subTask"].map((task) => SubTask.fromJson(task))),
         priority: json["message"],
         isCompleted: json["isCompleted"],
         uid: json["id"],
@@ -52,16 +54,19 @@ class Todo {
   Todo.fromMap(Map<String, dynamic> map, id)
       : title = map["title"],
         description = map["description"],
-        dateTime = DateFormat('hh:mm aa MMM dd, yyyy').format(DateTime.fromMillisecondsSinceEpoch(map["dateTime"])),
-        subTask = (map["subTask"] as List<dynamic>).map((e) => SubTask.fromMap(e)).toList(),
+        dateTime = DateFormat('hh:mm aa MMM dd, yyyy')
+            .format(DateTime.fromMillisecondsSinceEpoch(map["dateTime"])),
+        subTask = (map["subTask"] as List<dynamic>)
+            .map((e) => SubTask.fromMap(e))
+            .toList(),
         priority = map["priority"],
         isCompleted = map["isCompleted"],
         uid = id;
 }
 
 class SubTask {
-  String title;
-  bool isCompleted;
+  String? title;
+  bool? isCompleted;
 
   SubTask({
     this.title,
@@ -83,6 +88,8 @@ class SubTask {
         isCompleted = map["isCompleted"];
 }
 
-List<Todo> parseSnapshot(QuerySnapshot snapshot) => snapshot.docs.map((e) {
-      return Todo.fromMap(e.data(), e.id);
-    }).toList();
+List<Todo> parseSnapshot(QuerySnapshot? snapshot) =>
+    snapshot?.docs.map((e) {
+      return Todo.fromMap(e.data() as Map<String, dynamic>, e.id);
+    }).toList() ??
+    [];

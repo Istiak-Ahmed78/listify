@@ -7,7 +7,7 @@ import 'package:listify/views/widgets/k_button.dart';
 import '../auth/sign_up_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key key}) : super(key: key);
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +42,13 @@ class WelcomeScreen extends StatelessWidget {
               KOutlinedButton.iconText(
                 buttonText: 'Sign up with Google',
                 assetIcon: KAssets.google,
+                onPressed: () {},
               ),
               SizedBox(height: KSize.getHeight(37)),
               KOutlinedButton.iconText(
                 buttonText: 'Sign up with Facebook',
                 assetIcon: KAssets.facebook,
+                onPressed: () {},
               ),
               SizedBox(height: KSize.getHeight(308)),
               Text(
