@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listify/controller/task_controller.dart';
+import 'package:listify/globals/controller/task_controller.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_app_bar.dart';

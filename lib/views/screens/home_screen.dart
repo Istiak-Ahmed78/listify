@@ -1,10 +1,9 @@
+import 'package:listify/globals/controller/authentication_controller.dart';
+import 'package:listify/globals/controller/task_controller.dart';
 import 'package:listify/views/widgets/custom_widget/k_expansion_tile.dart';
-import 'package:listify/controller/authentication_controller.dart';
-import 'package:listify/controller/tasks/tasks_provider.dart';
 import 'package:listify/views/screens/auth/login_screen.dart';
 import 'package:listify/views/screens/all_task_screen.dart';
 import 'package:listify/services/navigation_service.dart';
-import 'package:listify/controller/task_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:listify/views/widgets/task_card.dart';

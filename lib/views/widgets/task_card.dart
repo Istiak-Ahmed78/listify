@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:listify/controller/task_controller.dart';
+import 'package:listify/globals/controller/task_controller.dart';
 import 'package:listify/model/todo.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/details/details_screen.dart';

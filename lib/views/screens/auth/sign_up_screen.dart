@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:listify/controller/authentication_controller.dart';
+import 'package:listify/globals/controller/authentication_controller.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/auth/login_screen.dart';
-import 'package:listify/views/screens/home_screen.dart';
 import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_button.dart';
 import 'package:listify/views/widgets/k_textfield.dart';
