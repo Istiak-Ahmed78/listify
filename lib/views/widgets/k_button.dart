@@ -52,9 +52,7 @@ class KFilledButton extends _KButton {
     required String buttonText,
     required VoidCallback onPressed,
     Color buttonColor = KColors.primary,
-  })  : assert(buttonText != null),
-        assert(onPressed != null),
-        super(
+  }) : super(
           child: Center(
             child: Text(
               buttonText,
