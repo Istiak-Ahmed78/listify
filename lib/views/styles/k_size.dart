@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:listify/services/navigation_service.dart';
 
-class KSize {
+abstract class KSize {
   static Size get screenSize =>
       MediaQuery.of(Navigation.key.currentContext!).size;
 

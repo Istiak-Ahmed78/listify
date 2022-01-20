@@ -3,14 +3,8 @@ enum KThemeMode {
   DARK,
 }
 
-class KTheme {
+abstract class KTheme {
   static var kThemeMode = KThemeMode.LIGHT;
 
-  static bool darkMode() {
-    if (kThemeMode == KThemeMode.DARK) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  static bool darkMode() => kThemeMode == KThemeMode.DARK;
 }

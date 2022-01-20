@@ -1,4 +1,4 @@
-class KAssets {
+abstract class KAssets {
   static const _rootPath = 'assets';
   static const _iconDir = '$_rootPath/icons';
 
