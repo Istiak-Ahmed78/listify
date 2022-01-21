@@ -7,8 +7,8 @@ import 'package:listify/views/styles/styles.dart';
 /// per design need
 class _KButton extends StatelessWidget {
   _KButton({
-    @required this.child,
-    @required this.onPressed,
+    required this.child,
+    required this.onPressed,
     this.backgroundColor = KColors.primary,
     this.height = 50,
     this.width = double.infinity,
@@ -21,7 +21,7 @@ class _KButton extends StatelessWidget {
   final double height;
   final double width;
   final VoidCallback onPressed;
-  final Border border;
+  final Border? border;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +49,10 @@ class _KButton extends StatelessWidget {
 /// 3. Text Icon (Yet to be implemented)
 class KFilledButton extends _KButton {
   KFilledButton({
-    @required String buttonText,
-    @required VoidCallback onPressed,
+    required String buttonText,
+    required VoidCallback onPressed,
     Color buttonColor = KColors.primary,
-  })  : assert(buttonText != null),
-        assert(onPressed != null),
-        super(
+  }) : super(
           child: Center(
             child: Text(
               buttonText,
@@ -67,9 +65,9 @@ class KFilledButton extends _KButton {
         );
 
   KFilledButton.iconText({
-    @required IconData icon,
-    @required String buttonText,
-    @required VoidCallback onPressed,
+    required IconData icon,
+    required String buttonText,
+    required VoidCallback onPressed,
     Color buttonColor = KColors.primary,
   })  : assert(icon != null),
         assert(buttonText != null),
@@ -97,16 +95,17 @@ class KFilledButton extends _KButton {
 /// configuration can be set using this widget.
 class KOutlinedButton extends _KButton {
   KOutlinedButton({
-    @required String buttonText,
-    @required VoidCallback onPressed,
-    TextStyle textStyle,
-    Color borderColor,
+    required String buttonText,
+    required VoidCallback onPressed,
+    TextStyle? textStyle,
+    Color? borderColor,
   })  : assert(buttonText != null),
         super(
           child: Center(
             child: Text(
               buttonText,
-              style: textStyle ?? KTextStyle.buttonText(fontWeight: FontWeight.w500),
+              style: textStyle ??
+                  KTextStyle.buttonText(fontWeight: FontWeight.w500),
             ),
           ),
           onPressed: onPressed,
@@ -122,9 +121,9 @@ class KOutlinedButton extends _KButton {
         );
 
   KOutlinedButton.iconText({
-    @required String buttonText,
-    VoidCallback onPressed,
-    String assetIcon,
+    required String buttonText,
+    required VoidCallback onPressed,
+    required String assetIcon,
   })  : assert(buttonText != null),
         super(
           child: Row(
@@ -142,7 +141,7 @@ class KOutlinedButton extends _KButton {
               ),
             ],
           ),
-          onPressed: onPressed ?? () {},
+          onPressed: onPressed,
           backgroundColor: KColors.transparent,
           height: KSize.getHeight(84),
           border: Border.all(
@@ -156,9 +155,9 @@ class KOutlinedButton extends _KButton {
 /// configuration can be set using this widget.
 class KTextButton extends _KButton {
   KTextButton({
-    @required String buttonText,
-    TextStyle buttonTextStyle,
-    @required VoidCallback onPressed,
+    required String buttonText,
+    required VoidCallback onPressed,
+    TextStyle? buttonTextStyle,
     TextAlign textAlign = TextAlign.center,
   }) : super(
           child: Text(
@@ -167,15 +166,15 @@ class KTextButton extends _KButton {
             style: buttonTextStyle ?? KTextStyle.bodyText2(),
           ),
           onPressed: onPressed,
-          height: null,
+          height: 0.0,
           backgroundColor: KColors.transparent,
         );
 
   KTextButton.iconText({
-    @required String buttonText,
-    TextStyle buttonTextStyle,
-    @required String assetIcon,
-    @required VoidCallback onPressed,
+    required String buttonText,
+    required String assetIcon,
+    required VoidCallback onPressed,
+    TextStyle? buttonTextStyle,
   }) : super(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -196,6 +195,6 @@ class KTextButton extends _KButton {
           ),
           onPressed: onPressed,
           backgroundColor: KColors.transparent,
-          height: null,
+          height: 0.0,
         );
 }

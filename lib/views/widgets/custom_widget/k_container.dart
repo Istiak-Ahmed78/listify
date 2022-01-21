@@ -15,9 +15,9 @@ import 'package:flutter/rendering.dart';
 class KContainer extends LeafRenderObjectWidget {
   /// Initializing the constructor
   KContainer({
-    Key key,
-    this.width,
-    this.height,
+    Key? key,
+    required this.width,
+    required this.height,
     this.color = Colors.transparent,
   })  : assert(height != null, 'Height must not be null'),
         assert(width != null, 'Width must not be null'),
@@ -64,9 +64,9 @@ class KContainer extends LeafRenderObjectWidget {
 
 class RenderKContainer extends RenderBox {
   RenderKContainer({
-    @required double width,
-    @required double height,
-    @required Color color,
+    required double width,
+    required double height,
+    required Color color,
   })  : _width = width,
         _height = height,
         _color = color;

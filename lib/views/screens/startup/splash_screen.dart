@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:listify/constant/shared_preference_key.dart';
-import 'package:listify/controller/authentication/authentication_provider.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/auth/auth_wrapper.dart';
 import 'package:listify/views/styles/k_assets.dart';
@@ -10,14 +9,13 @@ import 'package:listify/views/styles/k_colors.dart';
 import 'package:listify/views/styles/k_size.dart';
 import 'package:listify/views/styles/k_text_style.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SplashScreen extends ConsumerStatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +27,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       /// Checking if app is Newly Installed / User is logged in / User is not logged in
       if (getBoolAsync(NEW_INSTALL, defaultValue: true)) {
         setValue(NEW_INSTALL, false);
-        ref.read(firebaseProvider).signOut();
+
+        ///TODO: Implement signout()
+        // ref.read(firebaseProvider).signOut();
       }
       AuthenticationWrapper().pushAndRemoveUntil(context);
     });

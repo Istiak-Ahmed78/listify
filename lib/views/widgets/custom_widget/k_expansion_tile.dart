@@ -3,10 +3,10 @@ import 'package:listify/views/styles/styles.dart';
 
 class KExpansionTile extends StatelessWidget {
   const KExpansionTile({
-    Key key,
-    this.title,
-    this.trailing,
-    this.children,
+    Key? key,
+    required this.title,
+    required this.trailing,
+    required this.children,
   }) : super(key: key);
 
   final Widget title;

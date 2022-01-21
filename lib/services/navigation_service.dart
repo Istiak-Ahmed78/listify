@@ -8,7 +8,7 @@ extension Navigation on Widget {
   /// we can access context of Screen A from Screen B to check if it
   /// came from Screen A. So we can trigger different logic depending on
   /// which screen we navigated from.
-  static BuildContext parentContext;
+  static BuildContext? parentContext;
 
   Future push(context) {
     parentContext = context;

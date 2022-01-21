@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:listify/extensions/swatch.dart';
+import 'package:listify/globals/bindings.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/startup/splash_screen.dart';
 import 'package:listify/views/styles/k_colors.dart';
@@ -21,7 +23,7 @@ Future<void> main() async {
   /// A widget that stores the state of providers.
   /// All Flutter applications using Riverpod must contain a [ProviderScope] at
   /// the root of their widget tree
-  runApp(ProviderScope(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,17 +32,20 @@ class MyApp extends StatelessWidget {
     /// Hide Keyboard
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Listify',
       navigatorKey: Navigation.key,
       debugShowCheckedModeBanner: false,
+      initialBinding: GlobalBindings(),
       theme: ThemeData(
         backgroundColor: KTheme.darkMode() ? KColors.spaceCadet : KColors.white,
-        scaffoldBackgroundColor: KTheme.darkMode() ? KColors.spaceCadet : KColors.white,
+        scaffoldBackgroundColor:
+            KTheme.darkMode() ? KColors.spaceCadet : KColors.white,
         brightness: KTheme.darkMode() ? Brightness.dark : Brightness.light,
         primaryColor: KColors.primary,
-        colorScheme: ThemeData().colorScheme.copyWith(secondary: KColors.accent),
-        primarySwatch: KColors.createMaterialColor(KColors.primary),
+        colorScheme:
+            ThemeData().colorScheme.copyWith(secondary: KColors.accent),
+        primarySwatch: KColors.primary.getSwatch(),
         appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(size: 16),
             actionsIconTheme: IconThemeData(size: 16),
