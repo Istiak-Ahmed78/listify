@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:listify/services/firebase.dart';
 import 'package:get/get.dart';
 
 class FirebaseAuthController extends GetxController {
@@ -7,6 +8,12 @@ class FirebaseAuthController extends GetxController {
   final authInstance = FirebaseAuth.instance;
 
   static FirebaseAuthController get to => Get.find();
+  @override
+  void onReady() {
+    user = Rx<User?>(authInstance.currentUser);
+    user.bindStream(authInstance.authStateChanges());
+    ever(user, authStateChangeStatus);
+  }
 
   Future<void> signIn({required String email, password}) async {
     try {
@@ -19,6 +26,18 @@ class FirebaseAuthController extends GetxController {
       isLoding.value = false;
       update();
     } on FirebaseAuthException catch (e) {}
+  }
+
+  Future<void> signInWithGoogle() async {
+    isLoding.value = true;
+    update();
+    try {
+      User? _user = (await authInstance.loginWithGoogle())?.user;
+      isLoding.value = false;
+      authStateChangeStatus(_user);
+    } on FirebaseAuthException catch (e) {
+      printError(info: e.toString());
+    }
   }
 
   Future<void> signUp({required String email, password}) async {
@@ -37,15 +56,20 @@ class FirebaseAuthController extends GetxController {
     }
   }
 
-  void authStateChangeStatus(User? user) {
-    if (user != null) {
-      user = user;
+  void authStateChangeStatus(User? rawUser) {
+    if (rawUser != null) {
+      user = Rx<User>(rawUser);
+      refresh();
+      print('User name: ${rawUser.displayName}');
       update();
     } else
-      return;
+      print('No user found');
+    return;
   }
 
   Future<void> signOut() async {
     authInstance.signOut();
+    authStateChangeStatus(null);
+    update();
   }
 }

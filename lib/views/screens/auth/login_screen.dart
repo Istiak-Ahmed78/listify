@@ -8,12 +8,7 @@ import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_button.dart';
 import 'package:listify/views/widgets/k_textfield.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
