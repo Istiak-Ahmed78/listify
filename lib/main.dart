@@ -20,9 +20,6 @@ Future<void> main() async {
   /// Initialize firebase
   await Firebase.initializeApp();
 
-  /// A widget that stores the state of providers.
-  /// All Flutter applications using Riverpod must contain a [ProviderScope] at
-  /// the root of their widget tree
   runApp(MyApp());
 }
 

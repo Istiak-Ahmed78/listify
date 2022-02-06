@@ -106,7 +106,27 @@ class _DropdownMenusState extends State<DropdownMenus> {
     );
   }
 
-  Widget _dropDownMenuBuilder(List<String> item) {
+
+
+  OverlayEntry _overlayEntryBuilder() {
+    return OverlayEntry(builder: (context) {
+      return Stack(
+        children: [
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: () => closeDropDownMenu(),
+            ),
+          ),
+          Positioned(
+              top: (_menuPosition?.dy ?? 0.0) + (_menuSize?.height ?? 0) + 5.0,
+              left: _menuPosition?.dx,
+              width: _menuSize?.width,
+              child: Material(child: _dropDownMenuBuilder(widget.items))),
+        ],
+      );
+    });
+  }
+    Widget _dropDownMenuBuilder(List<String> item) {
     return ListView.builder(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
@@ -128,34 +148,14 @@ class _DropdownMenusState extends State<DropdownMenus> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Flexible(
-                      child: Text(
+                  Text(
                     item[index],
                     style: widget.itemTextStyle,
-                  )),
+                  ),
                 ],
               ),
             ),
           );
         });
-  }
-
-  OverlayEntry _overlayEntryBuilder() {
-    return OverlayEntry(builder: (context) {
-      return Stack(
-        children: [
-          Positioned.fill(
-            child: GestureDetector(
-              onTap: () => closeDropDownMenu(),
-            ),
-          ),
-          Positioned(
-              top: (_menuPosition?.dy ?? 0.0) + (_menuSize?.height ?? 0) + 5.0,
-              left: _menuPosition?.dx,
-              width: _menuSize?.width,
-              child: Material(child: _dropDownMenuBuilder(widget.items))),
-        ],
-      );
-    });
   }
 }
