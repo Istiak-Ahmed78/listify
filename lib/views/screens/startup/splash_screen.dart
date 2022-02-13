@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:listify/constant/shared_preference_key.dart';
+import 'package:listify/constant/storage_managment.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/auth/auth_wrapper.dart';
 import 'package:listify/views/styles/k_assets.dart';
@@ -25,8 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
   initialize() async {
     Timer(Duration(milliseconds: 1000), () {
       /// Checking if app is Newly Installed / User is logged in / User is not logged in
-      if (getBoolAsync(NEW_INSTALL, defaultValue: true)) {
-        setValue(NEW_INSTALL, false);
+      if (box.read<bool>(NEW_INSTALL) ?? true) {
+        box.write(NEW_INSTALL, false);
 
         ///TODO: Implement signout()
         // ref.read(firebaseProvider).signOut();

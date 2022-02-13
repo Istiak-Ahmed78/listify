@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:listify/globals/controller/authentication_controller.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/auth/sign_up_screen.dart';
+import 'package:listify/views/screens/home_screen.dart';
 import 'package:listify/views/styles/styles.dart';
 import 'package:listify/views/widgets/k_button.dart';
 import 'package:listify/views/widgets/k_textfield.dart';
@@ -15,14 +15,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ref.listen(firebaseAuthProvider, (_, state) {
-    //   if (state is FirebaseAuthSuccessState) {
-    //     HomeScreen().pushAndRemoveUntil(context);
-    //   } else if (state is FirebaseAuthErrorState) {
-    //     snackBar(context, title: state.message, backgroundColor: KColors.charcoal);
-    //   }
-    // });
-
     return GetBuilder<FirebaseAuthController>(builder: (authController) {
       return Scaffold(
         body: Padding(
@@ -70,7 +62,10 @@ class LoginScreen extends StatelessWidget {
                   buttonColor: authController.isLoding.value
                       ? KColors.spaceCadet
                       : KColors.primary,
-                  onPressed: () {
+                  onPressed: () async {
+                    await authController.signIn(
+                        email: emailController.text,
+                        password: passwordController.text);
                     // if (!(authState is FirebaseAuthLoadingState)) {
                     //   if (emailController.text.trim().isNotEmpty && passwordController.text.isNotEmpty) {
                     //     hideKeyboard(context);
@@ -94,7 +89,10 @@ class LoginScreen extends StatelessWidget {
                 KOutlinedButton.iconText(
                   buttonText: 'Login with Google',
                   assetIcon: KAssets.google,
-                  onPressed: () {},
+                  onPressed: () async =>
+                      await authController.signInWithGoogle().then((value) {
+                    HomeScreen().push(context);
+                  }),
                 ),
                 SizedBox(height: KSize.getHeight(37)),
                 KOutlinedButton.iconText(

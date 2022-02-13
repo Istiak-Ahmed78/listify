@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:listify/constant/shared_preference_key.dart';
+import 'package:listify/constant/storage_managment.dart';
 import 'package:listify/services/firebase.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,7 @@ class FirebaseAuthController extends GetxController {
   @override
   void onReady() {
     user = Rx<User?>(authInstance.currentUser);
+
     user.bindStream(authInstance.authStateChanges());
     ever(user, authStateChangeStatus);
   }
@@ -60,6 +63,7 @@ class FirebaseAuthController extends GetxController {
     if (rawUser != null) {
       user = Rx<User>(rawUser);
       refresh();
+      box.write(USER_UID, user.value!.uid);
       print('User name: ${rawUser.displayName}');
       update();
     } else

@@ -8,14 +8,14 @@ import 'package:listify/globals/bindings.dart';
 import 'package:listify/services/navigation_service.dart';
 import 'package:listify/views/screens/startup/splash_screen.dart';
 import 'package:listify/views/styles/k_colors.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:listify/views/styles/k_theme.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initializing shared preference via nb_utils package
-  await initialize();
+//Initiating local storage
+  await GetStorage.init();
 
   /// Initialize firebase
   await Firebase.initializeApp();

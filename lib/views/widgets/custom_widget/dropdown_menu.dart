@@ -106,8 +106,6 @@ class _DropdownMenusState extends State<DropdownMenus> {
     );
   }
 
-
-
   OverlayEntry _overlayEntryBuilder() {
     return OverlayEntry(builder: (context) {
       return Stack(
@@ -126,36 +124,39 @@ class _DropdownMenusState extends State<DropdownMenus> {
       );
     });
   }
-    Widget _dropDownMenuBuilder(List<String> item) {
-    return ListView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: item.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              setState(() {
-                widget.controller.text = item[index];
-              });
-              if (widget.onChange != null) widget.onChange();
-              closeDropDownMenu();
-            },
-            child: Container(
-              width: _menuSize?.width,
-              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-              margin: EdgeInsets.only(bottom: itemsPadding),
-              decoration: BoxDecoration(color: widget.itemBackgroundColor),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    item[index],
-                    style: widget.itemTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
+
+  Widget _dropDownMenuBuilder(List<String> item) {
+    return Center(child: Text('This is a simple text'));
+    // return ListView.builder(
+    //     shrinkWrap: true,
+    //     padding: EdgeInsets.zero,
+    //     itemCount: item.length,
+    //     itemBuilder: (context, index) {
+    //       return InkWell(
+    //         onTap: () {
+    //           setState(() {
+    //             widget.controller.text = item[index];
+    //           });
+    //           if (widget.onChange != null) widget.onChange();
+    //           closeDropDownMenu();
+    //         },
+    //         child: Container(
+    //           width: _menuSize?.width,
+    //           padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+    //           margin: EdgeInsets.only(bottom: itemsPadding),
+    //           decoration: BoxDecoration(color: widget.itemBackgroundColor),
+    //           child: Row(
+    //             mainAxisSize: MainAxisSize.max,
+    //             children: [
+    //               Text(
+    //                 item[index],
+    //                 style: widget.itemTextStyle,
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     })
+    ;
   }
 }

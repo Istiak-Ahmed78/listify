@@ -3,7 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:listify/extensions/string_extension.dart';
 
-extension FirebaseServices on FirebaseAuth {
+extension FirebaseAuthServices on FirebaseAuth {
   Future<UserCredential?> loginWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
