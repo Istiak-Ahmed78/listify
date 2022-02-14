@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:listify/constant/shared_preference_key.dart';
 import 'package:listify/constant/storage_managment.dart';
 import 'package:listify/model/todo.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:intl/intl.dart';
 
 class TasksController extends GetxController {
@@ -15,11 +14,16 @@ class TasksController extends GetxController {
   CollectionReference get userTasksCollection =>
       tasksCollection.doc(box.read<String>(USER_UID)).collection('usertasks');
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> get taskStream async* {
+    // Couldn't find smarter solution to handle this (as Stream<QuerySnapshot<Map<String, dynamic>>>)
+    yield* userTasksCollection.snapshots()
+        as Stream<QuerySnapshot<Map<String, dynamic>>>;
+  }
+
   Future<void> createNewTask(
       String title, description, dateTime, priority) async {
     try {
-      DocumentReference documentReferencer =
-          tasksCollection.doc((USER_UID)).collection('usertasks').doc();
+      DocumentReference documentReferencer = userTasksCollection.doc();
       await documentReferencer.set({
         "title": title,
         "description": description,

@@ -42,17 +42,20 @@ class HomeScreen extends GetView<FirebaseAuthController> {
 
                 /// Pending Tasks
                 StreamBuilder(
+                    stream: tastController.taskStream,
                     builder: (context, AsyncSnapshot<QuerySnapshot> snap) {
-                  if (snap.hasData) {
-                    List<Todo> _todos = parseSnapshot(snap.data);
-                    return _PendingTasksBuilder(snapshot: _todos);
-                  } else if (snap.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else
-                    return SizedBox();
-                }),
+                      if (snap.hasData) {
+                        List<Todo> _todos = parseSnapshot(snap.data);
+                        print('Task legnth: ${_todos.length}');
+                        return _PendingTasksBuilder(snapshot: _todos);
+                      } else if (snap.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else
+                        return SizedBox();
+                    }),
 
                 /// Completed Tasks
                 /// TODO:
@@ -180,7 +183,7 @@ class _PendingTasksBuilder extends StatelessWidget {
                 itemCount: snapshot.length,
                 itemBuilder: (context, index) {
                   return TaskCard(
-                    todo: taskController.tasks[index],
+                    todo: snapshot[index],
                   );
                 }),
           ],
