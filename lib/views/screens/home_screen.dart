@@ -46,7 +46,7 @@ class HomeScreen extends GetView<FirebaseAuthController> {
                     builder: (context, AsyncSnapshot<QuerySnapshot> snap) {
                       if (snap.hasData) {
                         List<Todo> _todos = parseSnapshot(snap.data);
-                        print('Task legnth: ${_todos.length}');
+
                         return _PendingTasksBuilder(snapshot: _todos);
                       } else if (snap.connectionState ==
                           ConnectionState.waiting) {
