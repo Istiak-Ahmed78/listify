@@ -42,95 +42,109 @@ class TaskCard extends StatelessWidget {
             onDismissed: (direction) async {
               taskController.removeTodo(todo.uid);
             },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: KSize.getHeight(15)),
+            child: DecoratedBox(
               decoration: BoxDecoration(
                 color: backgroundColor,
                 border:
                     borderOutline ? Border.all(color: KColors.charcoal) : null,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: KSize.getWidth(22)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+              child: LimitedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: KSize.getHeight(
+                      15,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: KSize.getWidth(22)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right: KSize.getWidth(22)),
-                                      child: Icon(
-                                        Icons.brightness_1_sharp,
-                                        color: todo.priority == "Low"
-                                            ? Colors.green
-                                            : todo.priority == "Medium"
-                                                ? Colors.orange
-                                                : Colors.red,
-                                        size: KSize.getWidth(16),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                        todo.title ?? 'Unvaible',
-                                        style: KTextStyle.bodyText2().copyWith(
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                if (todo.description != null)
-                                  if (todo.description!.length > 0)
-                                    Column(
+                                    Row(
                                       children: [
-                                        SizedBox(height: KSize.getHeight(5)),
-                                        Text(
-                                          todo.description ?? 'Unavailable',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: KTextStyle.bodyText3(),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              right: KSize.getWidth(22)),
+                                          child: Icon(
+                                            Icons.brightness_1_sharp,
+                                            color: todo.priority == "Low"
+                                                ? Colors.green
+                                                : todo.priority == "Medium"
+                                                    ? Colors.orange
+                                                    : Colors.red,
+                                            size: KSize.getWidth(16),
+                                          ),
                                         ),
-                                        SizedBox(height: KSize.getHeight(10)),
+                                        Flexible(
+                                          child: Text(
+                                            todo.title ?? 'Unvaible',
+                                            style: KTextStyle.bodyText2()
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                Text(todo.dateTime ?? 'Unavailable',
-                                    style: KTextStyle.bodyText2().copyWith(
-                                      color: KColors.charcoal.withOpacity(0.70),
-                                    )),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      if (!(todo.isCompleted ?? false))
-                        await taskController.completeTask(todo.uid);
-                      else
-                        await taskController.undoCompleteTask(todo.uid);
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(KSize.getWidth(36)),
-                      child: Icon(
-                        todo.isCompleted ?? false
-                            ? Icons.brightness_1
-                            : Icons.brightness_1_outlined,
-                        color: KColors.primary,
-                        size: KSize.getWidth(24),
+                                    if (todo.description != null)
+                                      if (todo.description!.length > 0)
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                                height: KSize.getHeight(5)),
+                                            Text(
+                                              todo.description ?? 'Unavailable',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: KTextStyle.bodyText3(),
+                                            ),
+                                            SizedBox(
+                                                height: KSize.getHeight(10)),
+                                          ],
+                                        ),
+                                    Text(todo.dateTime ?? 'Unavailable',
+                                        style: KTextStyle.bodyText2().copyWith(
+                                          color: KColors.charcoal
+                                              .withOpacity(0.70),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
+                      InkWell(
+                        onTap: () async {
+                          if (!(todo.isCompleted ?? false))
+                            await taskController.completeTask(todo.uid);
+                          else
+                            await taskController.undoCompleteTask(todo.uid);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(KSize.getWidth(36)),
+                          child: Icon(
+                            todo.isCompleted ?? false
+                                ? Icons.brightness_1
+                                : Icons.brightness_1_outlined,
+                            color: KColors.primary,
+                            size: KSize.getWidth(24),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
